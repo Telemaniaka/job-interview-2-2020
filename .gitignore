@@ -1,0 +1,5 @@
+vendor/
+phpunit.xml
+bin/
+var/twig_cache/*
+.idea

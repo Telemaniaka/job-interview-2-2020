@@ -1,0 +1,45 @@
+{
+    "name": "recruitment/mail-task-skeleton",
+    "description": "Skeleton for mail task",
+    "keywords": [],
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Recruitment\\MailTask\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Recruitment\\MailTask\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": ">=7.0",
+        "ext-bcmath": "*",
+        "kriswallsmith/buzz": "^1.1",
+        "mailgun/mailgun-php": "^3.0",
+        "nyholm/psr7": "^1.3",
+        "php-http/guzzle6-adapter": "^2.0",
+        "php-http/message": "^1.8",
+        "twig/twig": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5",
+        "mikey179/vfsstream": "^1.6",
+        "friendsofphp/php-cs-fixer": "^2.16"
+    },
+    "config": {
+        "sort-packages": true,
+        "bin-dir": "bin"
+    },
+    "scripts": {
+        "phpunit": "phpunit",
+        "fix-cs": "php-cs-fixer fix",
+        "test-cs": "php-cs-fixer fix --dry-run -v",
+        "test": ["@phpunit", "@test-cs"],
+        "local-server": [
+            "Composer\\Config::disableProcessTimeout",
+            "cd public && php -S localhost:8000 mod_rewrite.php"
+        ]
+    }
+}

@@ -1,0 +1,30 @@
+{% extends "canvas.html" %}
+
+{% block title %}Email Form{% endblock %}
+
+{% block content %}
+<form action="/submit" class="decor" method="POST">
+    <div class="form-left-decoration"></div>
+    <div class="form-right-decoration"></div>
+    <div class="circle"></div>
+    <div class="form-inner">
+        <h1>Simple Mail Sending Form</h1>
+        <input type="email" name="email" placeholder="Email" value="{{ values.email }}">
+        {% if errors['email'] %}
+        <span class="error">{{ errors.email }}</span>
+        {% endif %}
+
+        <input type="text" name="subject" placeholder="Subject" value="{{ values.subject }}">
+        {% if errors['subject'] %}
+        <span class="error">{{ errors.subject }}</span>
+        {% endif %}
+
+        <textarea placeholder="Message..." name="body" rows="5">{{ values.body }}</textarea>
+        {% if errors['body'] %}
+        <span class="error">{{ errors.body }}</span>
+        {% endif %}
+
+        <button type="submit" href="/submit">Submit</button>
+    </div>
+</form>
+{% endblock %}
