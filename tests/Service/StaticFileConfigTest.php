@@ -16,26 +16,26 @@ class StaticFileConfigTest extends TestCase
         $directory = [
             'config.php' => '<?php
                 return [
-                    \'client\' => [
-                        \'natural\' => [
-                            \'cashIn\' => [
-                                \'commissionRate\' => 0.03,
-                                \'maxCommission\' => 5,
+                    \'category\' => [
+                        \'sub-category1\' => [
+                            \'array1\' => [
+                                \'key1\' => 1,
+                                \'key2\' => 2,
                             ],
-                            \'cashOut\' => [
-                                \'commissionRate\' => 0.03,
-                                \'maxCommission\' => 5,
-                                \'dontTaxUnderPerWeek\' => 1000,
+                            \'array2\' => [
+                                \'key1\' => 3,
+                                \'key2\' => 4,
+                                \'key3\' => 5,
                             ]
                         ],
-                        \'legal\' => [
-                            \'cashIn\' => [
-                                \'commissionRate\' => 0.03,
-                                \'maxCommission\' => 5,
+                        \'sub-category2\' => [
+                            \'array1\' => [
+                                \'key1\' => 6,
+                                \'key2\' => 7,
                             ],
-                            \'cashOut\' => [
-                                \'commissionRate\' => 0.03,
-                                \'minCommission\' => 0.5,
+                            \'array2\' => [
+                                \'key3\' => 8,
+                                \'key4\' => 9,
                             ]
                 
                         ]
@@ -82,7 +82,7 @@ class StaticFileConfigTest extends TestCase
     {
         $config = new StaticFileConfig($this->file_system->url() . '/config.php');
 
-        $configKey = 'client.legal.cashIn';
+        $configKey = 'category.sub-category2.array1';
         $this->expectExceptionMessage('Config Variable '.$configKey.' is array');
         $config->getSingleValue($configKey);
 
@@ -92,16 +92,16 @@ class StaticFileConfigTest extends TestCase
     public function dataProviderConfigArrayTesting(): array
     {
         return [
-            'return operation commission rates' => ['client.natural.cashIn', ['commissionRate' => 0.03, 'maxCommission' => 5]],
-            'return null on missing key' => ['client.fake.cashIn.maxCommission', []],
+            'return operation commission rates' => ['category.sub-category1.array1', ['key1' => 1, 'key2' => 2]],
+            'return null on missing key' => ['category.sub-category3.array1', []],
         ];
     }
 
     public function dataProviderConfigSingleValueTesting(): array
     {
         return [
-            'return exact value'   => ['client.natural.cashIn.maxCommission', '5'],
-            'return null on missing key' => ['client.fake.cashIn.maxCommission', ''],
+            'return exact value'   => ['category.sub-category1.array1.key2', '2'],
+            'return null on missing key' => ['category.sub-category3.array1.key1', ''],
         ];
     }
 
